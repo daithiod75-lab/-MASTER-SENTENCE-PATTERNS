@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyGrammar! Master English Sentence Patterns (5文型)</title>
+    <!-- Tailwind CSS for modern light-blue UI styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for cute and functional UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Kosugi Maru for cute rounded Japanese text -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Kosugi Maru', sans-serif;
+            background-color: #F0F7FF; /* Ultra light sky-blue background */
+        }
+        .text-size-12min {
+            font-size: 1.05rem; /* Ensured base is >12px, highly readable */
+        }
+        /* Cute light-blue custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E0F2FE;
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #7DD3FC;
+            border-radius: 99px;
+        }
+        /* Pastel light color themes for grammatical components */
+        .color-subject { background-color: #E0F2FE; border-color: #38BDF8; color: #0369A1; } /* Sky Blue */
+        .color-verb { background-color: #FFE4E6; border-color: #FB7185; color: #BE123C; } /* Rose Red */
+        .color-object { background-color: #DCFCE7; border-color: #4ADE80; color: #166534; } /* Green */
+        .color-complement { background-color: #F3E8FF; border-color: #C084FC; color: #6B21A8; } /* Purple */
+        .color-modifier { background-color: #F1F5F9; border-color: #94A3B8; color: #475569; } /* Cool Slate */
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col selection:bg-sky-200">
+
+<script>
+    // Complete bilingual translations map for UI (including newly added elements)
+    const LANG_DATA = {
+        ja: {
+            logo: "スカイグラマー ✈️",
+            subtitle: "英語の5文型を楽しくマスターしよう！",
+            navStudy: "📘 お勉強ハブ",
+            navWorksheet: "📝 ワークシート",
+            navListening: "🎧 発音ラボ",
+            navQuiz: "⏱️ タイムアタック",
+            langBtn: "English",
+            mascotWelcome: "こんにちは！爽やかな青空の下で、英語の5文型（SV, SVC, SVO, SVOO, SVOC）を一緒に探検しましょう！長く複雑な文も一歩ずつ読み解けますよ！✨",
+            posSentences: "肯定文 (Positive)",
+            negSentences: "否定文 (Negative)",
+            listenButton: "発音を聞く",
+            subtextParen: "文型要素（S, V, O, C, M）にタッチ/マウスホバーすると、詳しい説明が表示されるよ！",
+            accentLabel: "アクセント (Accent):",
+            speedLabel: "声のタイプ (Voice Style):",
+            scoreText: "獲得スコア",
+            streakText: "連続正解",
+            timeRem: "残り時間",
+            sec: "秒",
+            startQuiz: "クイズに挑戦する！",
+            quizDesc: "10秒以内に答えると5点、15秒以内なら3点、25秒以内なら1点ゲット！ハイスコアを目指してスピードアップ！🌟",
+            answerButton: "決定する",
+            nextButton: "次の問題へ",
+            retryButton: "もう一度挑戦！",
+            successQuiz: "素晴らしい！満点クリアです！🏆",
+            completeQuiz: "お疲れ様でした！今回のスコア：",
+            backToTop: "トップへ戻る",
+            feedbackCorrect: "大正解！その調子！🎉",
+            feedbackIncorrect: "おっと！正解はこっちだよ！👀",
+            unscrambleTitle: "並び替えワークシート (Word Scramble)",
+            unscrambleDesc: "下のワードを順番通りにクリックして、正しい順序の英文を作ろう！",
+            submitCheck: "判定する",
+            correctAlert: "正解です！よく頑張ったね！🍭",
+            wrongAlert: "残念！もう一回並べ直してみてね！🍀",
+            showAnswer: "答えを見る",
+            accentUS: "USスタイル",
+            accentUK: "UKスタイル",
+            accentAU: "AUスタイル",
+            accentIE: "IE (アイルランド)スタイル",
+            advancedLabel: "ロングフォーム（発展編）",
+            elementGlossary: {
+                S: "主語 (Subject): 動作をする主人公。「〜は」「〜が」にあたるパーツです。",
+                V: "動詞 (Verb): 動作や状態。「〜する」「〜である」を表す一番大事なパーツです。",
+                O: "目的語 (Object): 動作の相手や対象。「〜を」「〜に」にあたります。主語とは違うものを指します (S ≠ O)。",
+                C: "補語 (Complement): 主語や目的語がどういう状態かを説明します。イコール関係が成り立ちます (S ＝ C, O ＝ C)。",
+                M: "修飾語 (Modifier): 時、場所、方法などのおまけ情報。基本の5文型(SVOC)の骨組みにはカウントしません。"
+            }
+        },
+        en: {
+            logo: "SkyGrammar ✈️",
+            subtitle: "Master the 5 English Sentence Patterns!",
+            navStudy: "📘 Study Hub",
+            navWorksheet: "📝 Worksheets",
+            navListening: "🎧 Accent Lab",
+            navQuiz: "⏱️ Time Attack",
+            langBtn: "日本語",
+            mascotWelcome: "Hi there! Let's explore the 5 English sentence patterns (SV, SVC, SVO, SVOO, SVOC) together! Even long sentences are easy once you break them down! ✨",
+            posSentences: "Positive Cases",
+            negSentences: "Negative Cases",
+            listenButton: "Listen Speech",
+            subtextParen: "Hover over/tap the elements (S, V, O, C, M) to see their grammatical descriptions!",
+            accentLabel: "Accent Style:",
+            speedLabel: "Voice Persona:",
+            scoreText: "Score Obtained",
+            streakText: "Combo Streak",
+            timeRem: "Time Left",
+            sec: "sec",
+            startQuiz: "Start Quiz Challenge!",
+            quizDesc: "Answer within 10s for 5pts, 15s for 3pts, 25s for 1pt! Challenge your high score with quick thinking! 🌟",
+            answerButton: "Submit Answer",
+            nextButton: "Next Question",
+            retryButton: "Try Again!",
+            successQuiz: "Perfect! You're a sentence master! 🏆",
+            completeQuiz: "Great job! Your final score:",
+            backToTop: "Back to Home",
+            feedbackCorrect: "Correct! Outstanding! 🎉",
+            feedbackIncorrect: "Oops! Here is the correct path! 👀",
+            unscrambleTitle: "Word Scramble Worksheet",
+            unscrambleDesc: "Click the word cards to arrange them into the correct English sentence!",
+            submitCheck: "Check Answer",
+            correctAlert: "That's correct! Well done! 🍭",
+            wrongAlert: "Not quite! Try arranging them again! 🍀",
+            showAnswer: "Show Answer",
+            accentUS: "US Style",
+            accentUK: "UK Style",
+            accentAU: "AU Style",
+            accentIE: "IE (Irish) Style",
+            advancedLabel: "Long Form (Advanced)",
+            elementGlossary: {
+                S: "Subject (S): The actor. Represents 'who' or 'what' is performing the action.",
+                V: "Verb (V): The action or state of being. Tells us what the subject does or is.",
+                O: "Object (O): The receiver of the action. It is not equal to the subject (S ≠ O).",
+                C: "Complement (C): Describes or renames the Subject or Object. Equal relation (S = C or O = C).",
+                M: "Modifier (M): Adds details like time, place, or manner. Does not count toward the core 5 patterns."
+            }
+        }
+    };
+</script>
+
+<script>
+    // Expanded sentence pattern data, featuring 2 standard and 1 newly added long form sample per section
+    const PATTERNS_DATA = [
+        {
+            id: "SV",
+            titleJa: "第1文型：主語＋動詞（SV）",
+            titleEn: "Pattern 1: Subject + Verb (SV)",
+            descJa: "「SがVする」という意味になります。後ろに場所、時間、様子を表す言葉（修飾語 M）がいくら長くくっついても、文の主要要素はSVだけです。",
+            descEn: "Meaning 'S performs action V'. Even if long modifiers (M) describing time, location, or manner follow, the core structure remains just S + V.",
+            formula: "S + V + (M)",
+            samples: [
+                {
+                    engPos: "We live in Japan.",
+                    engNeg: "We do not live in Japan.",
+                    jaPos: "(私たちは日本に住んでいる)",
+                    jaNeg: "(私たちは日本に住んでいない)",
+                    analysisPos: [
+                        { text: "We", role: "S" },
+                        { text: "live", role: "V" },
+                        { text: "in Japan", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "We", role: "S" },
+                        { text: "do not live", role: "V" },
+                        { text: "in Japan", role: "M" }
+                    ]
+                },
+                {
+                    engPos: "Our school stands on the hill.",
+                    engNeg: "Our school does not stand on the hill.",
+                    jaPos: "(私たちの学校は丘の上に立っている)",
+                    jaNeg: "(私たちの学校は丘の上に立っていない)",
+                    analysisPos: [
+                        { text: "Our school", role: "S" },
+                        { text: "stands", role: "V" },
+                        { text: "on the hill", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "Our school", role: "S" },
+                        { text: "does not stand", role: "V" },
+                        { text: "on the hill", role: "M" }
+                    ]
+                },
+                {
+                    isAdvanced: true,
+                    engPos: "The next express train will arrive at platform seven at exactly seven o'clock.",
+                    engNeg: "The next express train will not arrive at platform seven at seven o'clock.",
+                    jaPos: "(次の急行列車は、ちょうど7時に7番線ホームに到着する予定です)",
+                    jaNeg: "(次の急行列車は、7時に7番線ホームに到着する予定はありません)",
+                    analysisPos: [
+                        { text: "The next express train", role: "S" },
+                        { text: "will arrive", role: "V" },
+                        { text: "at platform seven", role: "M" },
+                        { text: "at exactly seven o'clock", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "The next express train", role: "S" },
+                        { text: "will not arrive", role: "V" },
+                        { text: "at platform seven", role: "M" },
+                        { text: "at seven o'clock", role: "M" }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "SVC",
+            titleJa: "第2文型：主語＋動詞＋補語（SVC）",
+            titleEn: "Pattern 2: Subject + Verb + Complement (SVC)",
+            descJa: "「SはCである / になる / に見える」などの意味を表します。最大のポイントは「S ＝ C（主語と補語がイコール関係）」になることです。",
+            descEn: "Meaning 'S equals C' or 'S seems/becomes C'. The defining characteristic of this pattern is the S = C relationship.",
+            formula: "S + V + C  (S ＝ C)",
+            samples: [
+                {
+                    engPos: "Ms. Suzuki is kind.",
+                    engNeg: "Ms. Suzuki is not kind.",
+                    jaPos: "(スズキさんは親切だ)",
+                    jaNeg: "(スズキさんは親切ではない)",
+                    analysisPos: [
+                        { text: "Ms. Suzuki", role: "S" },
+                        { text: "is", role: "V" },
+                        { text: "kind", role: "C" }
+                    ],
+                    analysisNeg: [
+                        { text: "Ms. Suzuki", role: "S" },
+                        { text: "is not", role: "V" },
+                        { text: "kind", role: "C" }
+                    ]
+                },
+                {
+                    engPos: "The children look happy.",
+                    engNeg: "The children do not look happy.",
+                    jaPos: "(子供たちは嬉しそうに見える)",
+                    jaNeg: "(子供たちは嬉しそうに見えない)",
+                    analysisPos: [
+                        { text: "The children", role: "S" },
+                        { text: "look", role: "V" },
+                        { text: "happy", role: "C" }
+                    ],
+                    analysisNeg: [
+                        { text: "The children", role: "S" },
+                        { text: "do not look", role: "V" },
+                        { text: "happy", role: "C" }
+                    ]
+                },
+                {
+                    isAdvanced: true,
+                    engPos: "My creative younger sister became an excellent junior high school student in April.",
+                    engNeg: "My creative younger sister did not become an excellent junior high school student in April.",
+                    jaPos: "(私の創造力豊かな妹は、4月に素晴らしい中学生になりました)",
+                    jaNeg: "(私の創造力豊かな妹は、4月に素晴らしい中学生にはなりませんでした)",
+                    analysisPos: [
+                        { text: "My creative younger sister", role: "S" },
+                        { text: "became", role: "V" },
+                        { text: "an excellent junior high school student", role: "C" },
+                        { text: "in April", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "My creative younger sister", role: "S" },
+                        { text: "did not become", role: "V" },
+                        { text: "an excellent junior high school student", role: "C" },
+                        { text: "in April", role: "M" }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "SVO",
+            titleJa: "第3文型：主語＋動詞＋目的語（SVO）",
+            titleEn: "Pattern 3: Subject + Verb + Object (SVO)",
+            descJa: "「SはOを（に）Vする」という意味。動詞のターゲットとなる言葉（目的語 O）が必要で、主語と目的語はイコールになりません（S ≠ O）。",
+            descEn: "Meaning 'S acts V upon Object O'. The Verb requires a direct receiver (Object). Unlike SVC, the Subject and Object are not equal (S ≠ O).",
+            formula: "S + V + O  (S ≠ O)",
+            samples: [
+                {
+                    engPos: "The boys like soccer.",
+                    engNeg: "The boys do not like soccer.",
+                    jaPos: "(その少年たちはサッカーが好きだ)",
+                    jaNeg: "(その少年たちはサッカーが好きではない)",
+                    analysisPos: [
+                        { text: "The boys", role: "S" },
+                        { text: "like", role: "V" },
+                        { text: "soccer", role: "O" }
+                    ],
+                    analysisNeg: [
+                        { text: "The boys", role: "S" },
+                        { text: "do not like", role: "V" },
+                        { text: "soccer", role: "O" }
+                    ]
+                },
+                {
+                    engPos: "Mika plays the piano every day.",
+                    engNeg: "Mika does not play the piano every day.",
+                    jaPos: "(ミカは毎日ピアノを弾く)",
+                    jaNeg: "(ミカは毎日ピアノを弾かない)",
+                    analysisPos: [
+                        { text: "Mika", role: "S" },
+                        { text: "plays", role: "V" },
+                        { text: "the piano", role: "O" },
+                        { text: "every day", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "Mika", role: "S" },
+                        { text: "does not play", role: "V" },
+                        { text: "the piano", role: "O" },
+                        { text: "every day", role: "M" }
+                    ]
+                },
+                {
+                    isAdvanced: true,
+                    engPos: "We watched the incredibly exciting soccer game on high-definition television last night with our family.",
+                    engNeg: "We did not watch the incredibly exciting soccer game on high-definition television last night.",
+                    jaPos: "(私たちは昨夜、信じられないほどエキサイティングなサッカーの試合を高画質テレビで家族と一緒に見ました)",
+                    jaNeg: "(私たちは昨夜、信じられないほどエキサイティングなサッカーの試合を高画質テレビで見ませんでした)",
+                    analysisPos: [
+                        { text: "We", role: "S" },
+                        { text: "watched", role: "V" },
+                        { text: "the incredibly exciting soccer game", role: "O" },
+                        { text: "on high-definition television", role: "M" },
+                        { text: "last night", role: "M" },
+                        { text: "with our family", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "We", role: "S" },
+                        { text: "did not watch", role: "V" },
+                        { text: "the incredibly exciting soccer game", role: "O" },
+                        { text: "on high-definition television", role: "M" },
+                        { text: "last night", role: "M" }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "SVOO",
+            titleJa: "第4文型：主語＋動詞＋目的語＋目的語（SVOO）",
+            titleEn: "Pattern 4: Subject + Verb + Object + Object (SVOO)",
+            descJa: "「SはO₁（人）にO₂（物）をVする（与える）」という意味です。前置詞(to/for)を使って「S + V + O₂ + to/for + O₁」に書き換えることができます！",
+            descEn: "Meaning 'S provides/gives O₂ (thing) to O₁ (person)'. You can convert this to an SVO pattern by moving O₂ forward and inserting 'to' or 'for'.",
+            formula: "S + V + O₁ (人) + O₂ (物)",
+            samples: [
+                {
+                    engPos: "He gave me a book.",
+                    engNeg: "He did not give me a book.",
+                    jaPos: "(彼は私に1冊の本をくれた)",
+                    jaNeg: "(彼は私に1冊の本をくれなかった)",
+                    analysisPos: [
+                        { text: "He", role: "S" },
+                        { text: "gave", role: "V" },
+                        { text: "me", role: "O" },
+                        { text: "a book", role: "O" }
+                    ],
+                    analysisNeg: [
+                        { text: "He", role: "S" },
+                        { text: "did not give", role: "V" },
+                        { text: "me", role: "O" },
+                        { text: "a book", role: "O" }
+                    ]
+                },
+                {
+                    engPos: "My father bought me a new racket.",
+                    engNeg: "My father did not buy me a new racket.",
+                    jaPos: "(父は私に新しいラケットを買ってくれた)",
+                    jaNeg: "(父は私に新しいラケットを買ってくれなかった)",
+                    analysisPos: [
+                        { text: "My father", role: "S" },
+                        { text: "bought", role: "V" },
+                        { text: "me", role: "O" },
+                        { text: "a new racket", role: "O" }
+                    ],
+                    analysisNeg: [
+                        { text: "My father", role: "S" },
+                        { text: "did not buy", role: "V" },
+                        { text: "me", role: "O" },
+                        { text: "a new racket", role: "O" }
+                    ]
+                },
+                {
+                    isAdvanced: true,
+                    engPos: "Ms. Brown kindly taught me some easy French words in the quiet classroom yesterday afternoon.",
+                    engNeg: "Ms. Brown did not teach me any easy French words in the quiet classroom yesterday afternoon.",
+                    jaPos: "(ブラウン先生は昨日の午後、静かな教室で私にいくつかの簡単なフランス語の単語を親切に教えてくれました)",
+                    jaNeg: "(ブラウン先生は昨日の午後、静かな教室で私に簡単なフランス語の単語を教えませんでした)",
+                    analysisPos: [
+                        { text: "Ms. Brown", role: "S" },
+                        { text: "kindly", role: "M" },
+                        { text: "taught", role: "V" },
+                        { text: "me", role: "O" },
+                        { text: "some easy French words", role: "O" },
+                        { text: "in the quiet classroom", role: "M" },
+                        { text: "yesterday afternoon", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "Ms. Brown", role: "S" },
+                        { text: "did not teach", role: "V" },
+                        { text: "me", role: "O" },
+                        { text: "any easy French words", role: "O" },
+                        { text: "in the quiet classroom", role: "M" },
+                        { text: "yesterday afternoon", role: "M" }
+                    ]
+                }
+            ]
+        },
+        {
+            id: "SVOC",
+            titleJa: "第5文型：主語＋動詞＋目的語＋補語（SVOC）",
+            titleEn: "Pattern 5: Subject + Verb + Object + Complement (SVOC)",
+            descJa: "「SはOをCと呼ぶ / OをCにする / OがCだと思う」などの意味になります。目的語と補語の間に「O ＝ C（目的語イコール補語）」という主述のような関係が成立します。",
+            descEn: "Meaning 'S calls O as C' or 'makes O become C'. An essential equal relationship (O = C) exists between the Object and the Complement.",
+            formula: "S + V + O + C  (O ＝ C)",
+            samples: [
+                {
+                    engPos: "He calls the cat Moon.",
+                    engNeg: "He does not call the cat Moon.",
+                    jaPos: "(彼はそのネコをムーンと呼ぶ)",
+                    jaNeg: "(彼はそのネコをムーンと呼ばない)",
+                    analysisPos: [
+                        { text: "He", role: "S" },
+                        { text: "calls", role: "V" },
+                        { text: "the cat", role: "O" },
+                        { text: "Moon", role: "C" }
+                    ],
+                    analysisNeg: [
+                        { text: "He", role: "S" },
+                        { text: "does not call", role: "V" },
+                        { text: "the cat", role: "O" },
+                        { text: "Moon", role: "C" }
+                    ]
+                },
+                {
+                    engPos: "The movie made her a star.",
+                    engNeg: "The movie did not make her a star.",
+                    jaPos: "(その映画が彼女をスターにした)",
+                    jaNeg: "(その映画は彼女をスターにしなかった)",
+                    analysisPos: [
+                        { text: "The movie", role: "S" },
+                        { text: "made", role: "V" },
+                        { text: "her", role: "O" },
+                        { text: "a star", role: "C" }
+                    ],
+                    analysisNeg: [
+                        { text: "The movie", role: "S" },
+                        { text: "did not make", role: "V" },
+                        { text: "her", role: "O" },
+                        { text: "a star", role: "C" }
+                    ]
+                },
+                {
+                    isAdvanced: true,
+                    engPos: "The interesting fantasy movie suddenly made her an international star in just one year.",
+                    engNeg: "The interesting fantasy movie did not make her an international star in just one year.",
+                    jaPos: "(その面白いファンタジー映画は、わずか1年で突然彼女を国際的なスターに仕立て上げました)",
+                    jaNeg: "(その面白いファンタジー映画は、わずか1年で彼女を国際的なスターにはしませんでした)",
+                    analysisPos: [
+                        { text: "The interesting fantasy movie", role: "S" },
+                        { text: "suddenly", role: "M" },
+                        { text: "made", role: "V" },
+                        { text: "her", role: "O" },
+                        { text: "an international star", role: "C" },
+                        { text: "in just one year", role: "M" }
+                    ],
+                    analysisNeg: [
+                        { text: "The interesting fantasy movie", role: "S" },
+                        { text: "did not make", role: "V" },
+                        { text: "her", role: "O" },
+                        { text: "an international star", role: "C" },
+                        { text: "in just one year", role: "M" }
+                    ]
+                }
+            ]
+        }
+    ];
+</script>
+
+<script>
+    // Original questions extracted from provided source files UNIT 9 & 10
+    const WORKSHEET_ITEMS = [
+        {
+            sentence: "Our school stands on the hill.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SV",
+            meaning: "(私たちの学校は丘の上に立っている)",
+            parts: [{t: "Our school", r: "S"}, {t: "stands", r: "V"}, {t: "on the hill", r: "M"}]
+        },
+        {
+            sentence: "The children look happy.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVC",
+            meaning: "(子供たちは嬉しそうに見える)",
+            parts: [{t: "The children", r: "S"}, {t: "look", r: "V"}, {t: "happy", r: "C"}]
+        },
+        {
+            sentence: "My sister is a junior high school student.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVC",
+            meaning: "(私の姉は中学生です)",
+            parts: [{t: "My sister", r: "S"}, {t: "is", r: "V"}, {t: "a junior high school student", r: "C"}]
+        },
+        {
+            sentence: "We became good friends.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVC",
+            meaning: "(私たちは良い友達になった)",
+            parts: [{t: "We", r: "S"}, {t: "became", r: "V"}, {t: "good friends", r: "C"}]
+        },
+        {
+            sentence: "Ken runs around the park every morning.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SV",
+            meaning: "(ケンは毎朝公園の周りを走る)",
+            parts: [{t: "Ken", r: "S"}, {t: "runs", r: "V"}, {t: "around the park", r: "M"}, {t: "every morning", r: "M"}]
+        },
+        {
+            sentence: "The curry at the restaurant tastes delicious.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVC",
+            meaning: "(レストランのカレーはとても美味しい味がする)",
+            parts: [{t: "The curry at the restaurant", r: "S"}, {t: "tastes", r: "V"}, {t: "delicious", r: "C"}]
+        },
+        {
+            sentence: "We got a letter from Paul.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVO",
+            meaning: "(私たちはポールから手紙をもらった)",
+            parts: [{t: "We", r: "S"}, {t: "got", r: "V"}, {t: "a letter", r: "O"}, {t: "from Paul", r: "M"}]
+        },
+        {
+            sentence: "They kept quiet in the library.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVC",
+            meaning: "(彼らは図書館で静かにしていた)",
+            parts: [{t: "They", r: "S"}, {t: "kept", r: "V"}, {t: "quiet", r: "C"}, {t: "in the library", r: "M"}]
+        },
+        {
+            sentence: "Jim missed the last bus yesterday.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVO",
+            meaning: "(ジムは昨日、最終バスを逃した)",
+            parts: [{t: "Jim", r: "S"}, {t: "missed", r: "V"}, {t: "the last bus", r: "O"}, {t: "yesterday", r: "M"}]
+        },
+        {
+            sentence: "They elected Mr. White their new mayor.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVOC",
+            meaning: "(彼らはホワイト氏を新しい市長に選出した)",
+            parts: [{t: "They", r: "S"}, {t: "elected", r: "V"}, {t: "Mr. White", r: "O"}, {t: "their new mayor", r: "C"}]
+        },
+        {
+            sentence: "Jim passed me the ball.",
+            options: ["SV", "SVC", "SVO", "SVOO", "SVOC"],
+            answer: "SVOO",
+            meaning: "(ジムは私にボールをパスしてくれた)",
+            parts: [{t: "Jim", r: "S"}, {t: "passed", r: "V"}, {t: "me", r: "O"}, {t: "the ball", r: "O"}]
+        }
+    ];
+
+    // Rearrangement (Scrambling) exercises from UNIT 9 & 10
+    const SCRAMBLE_ITEMS = [
+        {
+            meaningJa: "ミカは毎日ピアノを弾く。",
+            meaningEn: "Mika plays the piano every day.",
+            words: ["Mika", "plays", "the piano", "every", "day"],
+            correctOrder: ["Mika", "plays", "the piano", "every", "day"]
+        },
+        {
+            meaningJa: "大統領はそのパーティーで歌を歌った。",
+            meaningEn: "The president sang a song at the party.",
+            words: ["The president", "sang", "a song", "at", "the party"],
+            correctOrder: ["The president", "sang", "a song", "at", "the party"]
+        },
+        {
+            meaningJa: "父は私に新しいラケットを買ってくれた。",
+            meaningEn: "My father bought me a new racket.",
+            words: ["My father", "bought", "me", "a new racket"],
+            correctOrder: ["My father", "bought", "me", "a new racket"]
+        },
+        {
+            meaningJa: "彼らは窓を開けたままにしていた。",
+            meaningEn: "They kept the windows open.",
+            words: ["They", "kept", "the windows", "open"],
+            correctOrder: ["They", "kept", "the windows", "open"]
+        },
+        {
+            meaningJa: "ブラウン先生は私にいくつかの簡単なフランス語の単語を教えてくれた。",
+            meaningEn: "Ms. Brown taught me some easy French words.",
+            words: ["Ms. Brown", "taught", "me", "some", "easy French words"],
+            correctOrder: ["Ms. Brown", "taught", "me", "some", "easy French words"]
+        }
+    ];
+</script>
+
+<!-- Header Block with modern Sky-Blue themed Gradient -->
+<header class="bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 text-white shadow-lg sticky top-0 z-50 transition-all">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+            <span class="text-3xl animate-bounce">✈️</span>
+            <div>
+                <h1 id="header-logo" class="text-2xl font-extrabold tracking-wider">スカイグラマー ✈️</h1>
+                <p id="header-subtitle" class="text-xs font-bold text-sky-100">英語の5文型をマスターしよう！</p>
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <nav class="flex flex-wrap gap-2 mt-1 sm:mt-0">
+            <button onclick="switchTab('study')" id="nav-study" class="nav-tab px-4 py-2 rounded-full font-bold bg-white text-sky-600 shadow-md transition transform hover:scale-105">
+                📘 お勉強ハブ
+            </button>
+            <button onclick="switchTab('worksheet')" id="nav-worksheet" class="nav-tab px-4 py-2 rounded-full font-bold text-white hover:bg-sky-600/50 transition">
+                📝 ワークシート
+            </button>
+            <button onclick="switchTab('listening')" id="nav-listening" class="nav-tab px-4 py-2 rounded-full font-bold text-white hover:bg-sky-600/50 transition">
+                🎧 発音ラボ
+            </button>
+            <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-tab px-4 py-2 rounded-full font-bold text-white hover:bg-sky-600/50 transition">
+                ⏱️ タイムアタック
+            </button>
+        </nav>
+
+        <!-- Right Side Utility Controls (Lang & Settings) -->
+        <div class="flex items-center gap-2">
+            <button onclick="toggleLanguage()" id="lang-btn" class="bg-white border-2 border-sky-400 text-sky-600 font-bold px-4 py-1.5 rounded-full text-sm hover:bg-sky-100 transition shadow">
+                English
+            </button>
+            <button onclick="toggleSettingsModal()" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold p-2 rounded-full transition shadow flex items-center justify-center" title="Settings / 設定">
+                <i class="fa-solid fa-gear text-lg"></i>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6">
+    <!-- Welcome Mascot box in refreshed light blue theme -->
+    <div class="bg-gradient-to-r from-sky-100 to-blue-100 rounded-3xl p-5 mb-8 border-4 border-dashed border-sky-300 flex flex-col md:flex-row items-center gap-5 shadow-sm">
+        <div class="text-6xl animate-pulse">🐦</div>
+        <div class="flex-grow">
+            <div class="bg-white p-4 rounded-2xl relative shadow-md">
+                <div class="absolute w-4 h-4 bg-white transform rotate-45 -left-2 top-1/2 -translate-y-1/2 hidden md:block"></div>
+                <p id="mascot-text" class="text-base md:text-lg font-bold text-slate-700 leading-relaxed text-size-12min">
+                    こんにちは！爽やかな青空の下で、英語の5文型（SV, SVC, SVO, SVOO, SVOC）を一緒に探検しましょう！長く複雑な文も一歩ずつ読み解けますよ！✨
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 1: STUDY HUB -->
+    <section id="section-study" class="tab-content block">
+        <!-- Pattern Quick Switch Tabs with light blue variations -->
+        <div class="flex flex-wrap gap-2 mb-6 justify-center">
+            <button onclick="selectPattern('SV')" id="btn-p-SV" class="pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform scale-105 bg-sky-500 text-white border-sky-600">SV</button>
+            <button onclick="selectPattern('SVC')" id="btn-p-SVC" class="pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform hover:scale-105 bg-white text-purple-600 border-purple-200">SVC</button>
+            <button onclick="selectPattern('SVO')" id="btn-p-SVO" class="pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform hover:scale-105 bg-white text-emerald-600 border-emerald-200">SVO</button>
+            <button onclick="selectPattern('SVOO')" id="btn-p-SVOO" class="pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform hover:scale-105 bg-white text-orange-600 border-orange-200">SVOO</button>
+            <button onclick="selectPattern('SVOC')" id="btn-p-SVOC" class="pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform hover:scale-105 bg-white text-pink-600 border-pink-200">SVOC</button>
+        </div>
+
+        <!-- Pattern Detail Display Card with light blue theme accent borders -->
+        <div id="pattern-card" class="bg-white rounded-3xl border-4 border-sky-200 shadow-xl p-6 md:p-8 transition-all">
+            <div class="flex flex-wrap items-center justify-between border-b-2 border-sky-100 pb-4 mb-6">
+                <h2 id="p-title" class="text-2xl md:text-3xl font-extrabold text-sky-700 text-size-12min"></h2>
+                <span id="p-formula" class="bg-sky-500 text-white px-5 py-2 rounded-full font-black tracking-widest text-lg shadow">S + V + M</span>
+            </div>
+            
+            <p id="p-desc" class="text-base md:text-lg mb-8 leading-relaxed text-slate-700 text-size-12min bg-sky-50/50 p-4 rounded-xl border border-sky-100"></p>
+
+            <!-- Interaction Notice -->
+            <div class="mb-6 bg-sky-50 border border-sky-100 text-sky-800 rounded-xl px-4 py-2 flex items-center gap-2">
+                <i class="fa-solid fa-circle-info"></i>
+                <span id="subtext-tip" class="text-sm font-semibold"></span>
+            </div>
+
+            <!-- Three Sample Sentences Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Sample 1 Card -->
+                <div class="bg-gradient-to-br from-sky-50 to-blue-50/30 rounded-2xl p-5 border border-sky-200/60 shadow-sm relative flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -top-3 left-4 bg-sky-500 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase" id="label-pos-1">Positive</div>
+                        <div class="mt-2">
+                            <!-- Positive analysis block -->
+                            <div id="sample1-pos-words" class="flex flex-wrap gap-2 items-end min-h-[4rem]"></div>
+                            <p id="sample1-pos-ja" class="text-sm text-slate-500 mt-2 italic font-medium"></p>
+                        </div>
+                    </div>
+
+                    <!-- TTS trigger bar -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-sky-200 flex flex-wrap gap-2 justify-between items-center">
+                        <button onclick="playSampleVoice('pos1')" class="bg-sky-500 text-white hover:bg-sky-600 font-extrabold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span class="listen-btn-text">発音を聞く</span>
+                        </button>
+                        <div class="flex items-center gap-1 text-[11px]">
+                            <span class="font-bold text-sky-700"><i class="fa-solid fa-earth-americas"></i> <span id="lbl-accent-us">US Style</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample 1 Negative Card -->
+                <div class="bg-gradient-to-br from-rose-50 to-pink-50/30 rounded-2xl p-5 border border-rose-200/60 shadow-sm relative flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -top-3 left-4 bg-rose-400 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase" id="label-neg-1">Negative</div>
+                        <div class="mt-2">
+                            <!-- Negative analysis block -->
+                            <div id="sample1-neg-words" class="flex flex-wrap gap-2 items-end min-h-[4rem]"></div>
+                            <p id="sample1-neg-ja" class="text-sm text-slate-500 mt-2 italic font-medium"></p>
+                        </div>
+                    </div>
+
+                    <!-- TTS trigger bar -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-rose-200 flex flex-wrap gap-2 justify-between items-center">
+                        <button onclick="playSampleVoice('neg1')" class="bg-rose-400 text-white hover:bg-rose-500 font-extrabold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span class="listen-btn-text">発音を聞く</span>
+                        </button>
+                        <div class="flex items-center gap-1 text-[11px]">
+                            <span class="font-bold text-rose-700"><i class="fa-solid fa-earth-europe"></i> <span id="lbl-accent-uk">UK Style</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample 2 Card (Australian Accent Preset) -->
+                <div class="bg-gradient-to-br from-sky-50 to-blue-50/30 rounded-2xl p-5 border border-sky-200/60 shadow-sm relative flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -top-3 left-4 bg-sky-500 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase" id="label-pos-2">Positive 2</div>
+                        <div class="mt-2">
+                            <!-- Positive analysis block -->
+                            <div id="sample2-pos-words" class="flex flex-wrap gap-2 items-end min-h-[4rem]"></div>
+                            <p id="sample2-pos-ja" class="text-sm text-slate-500 mt-2 italic font-medium"></p>
+                        </div>
+                    </div>
+
+                    <!-- TTS trigger bar -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-sky-200 flex flex-wrap gap-2 justify-between items-center">
+                        <button onclick="playSampleVoice('pos2')" class="bg-sky-500 text-white hover:bg-sky-600 font-extrabold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span class="listen-btn-text">発音を聞く</span>
+                        </button>
+                        <div class="flex items-center gap-1 text-[11px]">
+                            <span class="font-bold text-sky-700"><i class="fa-solid fa-earth-oceania"></i> <span id="lbl-accent-au">AU Style</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample 2 Negative Card (British Accent Preset) -->
+                <div class="bg-gradient-to-br from-rose-50 to-pink-50/30 rounded-2xl p-5 border border-rose-200/60 shadow-sm relative flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -top-3 left-4 bg-rose-400 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase" id="label-neg-2">Negative 2</div>
+                        <div class="mt-2">
+                            <!-- Negative analysis block -->
+                            <div id="sample2-neg-words" class="flex flex-wrap gap-2 items-end min-h-[4rem]"></div>
+                            <p id="sample2-neg-ja" class="text-sm text-slate-500 mt-2 italic font-medium"></p>
+                        </div>
+                    </div>
+
+                    <!-- TTS trigger bar -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-rose-200 flex flex-wrap gap-2 justify-between items-center">
+                        <button onclick="playSampleVoice('neg2')" class="bg-rose-400 text-white hover:bg-rose-500 font-extrabold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span class="listen-btn-text">発音を聞く</span>
+                        </button>
+                        <div class="flex items-center gap-1 text-[11px]">
+                            <span class="font-bold text-rose-700"><i class="fa-solid fa-earth-europe"></i> <span id="lbl-accent-uk-2">UK Style</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample 3 Card (Long Form - Positive - Irish Accent Preset) -->
+                <div class="bg-gradient-to-br from-indigo-50 to-blue-50/30 rounded-2xl p-5 border border-indigo-200/60 shadow-sm relative lg:col-span-1 flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -top-3 left-4 bg-indigo-500 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase" id="label-adv-pos">Advanced Pos</div>
+                        <div class="mt-2">
+                            <!-- Advanced Positive analysis block -->
+                            <div id="sample3-pos-words" class="flex flex-wrap gap-2 items-end min-h-[4rem]"></div>
+                            <p id="sample3-pos-ja" class="text-xs text-indigo-900 mt-2 italic font-semibold"></p>
+                        </div>
+                    </div>
+
+                    <!-- TTS trigger bar -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-indigo-200 flex flex-wrap gap-2 justify-between items-center">
+                        <button onclick="playSampleVoice('advpos')" class="bg-indigo-500 text-white hover:bg-indigo-600 font-extrabold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span class="listen-btn-text">発音を聞く</span>
+                        </button>
+                        <div class="flex items-center gap-1 text-[11px]">
+                            <span class="font-bold text-indigo-700"><i class="fa-solid fa-earth-europe"></i> <span id="lbl-accent-ie">IE Style (Irish)</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample 3 Card (Long Form - Negative - Irish Accent Preset) -->
+                <div class="bg-gradient-to-br from-rose-50 to-orange-50/30 rounded-2xl p-5 border border-rose-200/60 shadow-sm relative lg:col-span-1 flex flex-col justify-between">
+                    <div>
+                        <div class="absolute -top-3 left-4 bg-rose-500 text-white font-extrabold text-xs px-3 py-1 rounded-full uppercase" id="label-adv-neg">Advanced Neg</div>
+                        <div class="mt-2">
+                            <!-- Advanced Negative analysis block -->
+                            <div id="sample3-neg-words" class="flex flex-wrap gap-2 items-end min-h-[4rem]"></div>
+                            <p id="sample3-neg-ja" class="text-xs text-rose-900 mt-2 italic font-semibold"></p>
+                        </div>
+                    </div>
+
+                    <!-- TTS trigger bar -->
+                    <div class="mt-4 pt-3 border-t border-dashed border-rose-200 flex flex-wrap gap-2 justify-between items-center">
+                        <button onclick="playSampleVoice('advneg')" class="bg-rose-500 text-white hover:bg-rose-600 font-extrabold px-4 py-2 rounded-xl text-xs transition flex items-center gap-2 shadow-sm">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <span class="listen-btn-text">発音を聞く</span>
+                        </button>
+                        <div class="flex items-center gap-1 text-[11px]">
+                            <span class="font-bold text-rose-700"><i class="fa-solid fa-earth-europe"></i> <span id="lbl-accent-ie-2">IE Style (Irish)</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactivity glossary explanation overlay card -->
+            <div id="glossary-box" class="mt-6 bg-slate-100 p-4 rounded-2xl border border-slate-200 hidden transform translate-y-2 transition-all">
+                <h4 id="glossary-title" class="font-bold text-sky-600 text-size-12min">Glossary</h4>
+                <p id="glossary-desc" class="text-sm text-slate-700 mt-1"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: WORKSHEETS -->
+    <section id="section-worksheet" class="tab-content hidden">
+        <div class="bg-white rounded-3xl border-4 border-sky-200 shadow-xl p-6 md:p-8">
+            <h2 id="worksheet-main-title" class="text-2xl md:text-3xl font-extrabold text-sky-600 mb-2">並び替えワークシート (Word Scramble)</h2>
+            <p id="worksheet-main-desc" class="text-sm md:text-base text-slate-600 mb-6">下のワードをクリックして、正しい順序の英文を作ろう！</p>
+
+            <!-- Scrambler Container -->
+            <div id="scramble-game" class="bg-sky-50/50 border-2 border-sky-100 rounded-2xl p-6 mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <span id="scramble-index" class="bg-sky-500 text-white px-3 py-1 rounded-full font-bold text-sm">Question 1/5</span>
+                    <button onclick="scramblePlayVoice()" class="text-sky-500 hover:text-sky-600 text-2xl" title="Listen Sentence / 発音を聞く"><i class="fa-solid fa-circle-play"></i></button>
+                </div>
+
+                <!-- Japanese cue sentence -->
+                <div class="mb-6">
+                    <p id="scramble-ja" class="text-xl font-bold text-slate-800 text-size-12min mb-2"></p>
+                    <p id="scramble-en-hint" class="text-sm text-slate-400 italic hidden"></p>
+                </div>
+
+                <!-- Selected words pool -->
+                <div class="min-h-[4rem] bg-white border-2 border-dashed border-sky-200 rounded-xl p-4 flex flex-wrap gap-2 mb-6" id="scramble-workspace">
+                    <!-- filled items go here -->
+                </div>
+
+                <!-- Scrambled words pool to pick from -->
+                <div class="flex flex-wrap gap-2 justify-center mb-6" id="scramble-pool">
+                    <!-- Words cards appear here -->
+                </div>
+
+                <!-- Action Button Controls -->
+                <div class="flex flex-wrap gap-2 justify-end">
+                    <button onclick="revealScrambleHint()" id="btn-show-ans" class="bg-slate-200 text-slate-700 hover:bg-slate-300 font-extrabold px-6 py-3 rounded-xl text-sm transition">
+                        答えを見る
+                    </button>
+                    <button onclick="checkScrambleAnswer()" id="btn-check-scramble" class="bg-sky-500 text-white hover:bg-sky-600 font-extrabold px-8 py-3 rounded-xl text-sm transition shadow-md">
+                        判定する
+                    </button>
+                    <button onclick="nextScrambleQuestion()" id="btn-next-scramble" class="bg-emerald-500 text-white hover:bg-emerald-600 font-extrabold px-8 py-3 rounded-xl text-sm transition shadow-md hidden">
+                        次へ <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pattern Classifier Section -->
+            <div class="border-t-2 border-dashed border-sky-100 pt-8">
+                <h3 id="class-title" class="text-xl md:text-2xl font-bold text-slate-800 mb-4">文型当てクイズ (Find the Pattern)</h3>
+                <div id="classifier-box" class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                    <p id="classifier-eng" class="text-2xl font-extrabold text-slate-800 mb-2"></p>
+                    <p id="classifier-ja" class="text-sm text-slate-500 italic mb-6"></p>
+
+                    <!-- Option button selectors -->
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6" id="classifier-options"></div>
+
+                    <!-- Breakdown analysis shown after submit -->
+                    <div id="classifier-breakdown" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 transition-all">
+                        <p class="font-extrabold text-emerald-800 mb-2" id="classifier-feedback"></p>
+                        <div id="classifier-analysis-render" class="flex flex-wrap gap-2 items-center mb-3"></div>
+                        <button onclick="nextClassifierQuestion()" class="bg-sky-500 text-white hover:bg-sky-600 font-bold px-6 py-2 rounded-xl text-sm transition">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: ACCENT LISTENING LAB -->
+    <section id="section-listening" class="tab-content hidden">
+        <div class="bg-white rounded-3xl border-4 border-sky-200 shadow-xl p-6 md:p-8">
+            <h2 id="accent-main-title" class="text-2xl md:text-3xl font-extrabold text-sky-600 mb-2">発音・リスニング ラボ (Listening Sandbox)</h2>
+            <p id="accent-main-desc" class="text-sm md:text-base text-slate-600 mb-6">好きな英文を入力して、各国のネイティブスピーカーのなまり・トーンで発音させてみよう！</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Parameters card -->
+                <div class="bg-sky-50/50 p-5 rounded-2xl border border-sky-100 md:col-span-1">
+                    <!-- Accent picker - NOW INCLUDING IRISH ACCENT OPTION -->
+                    <div class="mb-4">
+                        <label id="lbl-accent" class="block font-bold text-slate-700 mb-2 text-sm">アクセント (Accent):</label>
+                        <select id="tts-accent" class="w-full bg-white border-2 border-sky-200 rounded-xl p-3 font-semibold text-slate-700 outline-none focus:border-sky-500">
+                            <option value="Zephyr:American:en-US">🇺🇸 American Accent (Zephyr)</option>
+                            <option value="Fenrir:British:en-GB">🇬🇧 British Accent (Fenrir)</option>
+                            <option value="Puck:Australian:en-AU">🇦🇺 Australian Accent (Puck)</option>
+                            <option value="Callirrhoe:Irish:en-IE">🇮🇪 Irish Accent (Callirrhoe)</option>
+                            <option value="Aoede:Indian:en-IN">🇮🇳 Indian English Accent (Aoede)</option>
+                            <option value="Algenib:Gravelly:en-US">🎙️ Deep Gravelly Accent (Algenib)</option>
+                            <option value="Kore:Firm:en-US">💼 Corporate Professional (Kore)</option>
+                        </select>
+                    </div>
+
+                    <!-- Tone picker -->
+                    <div class="mb-6">
+                        <label id="lbl-tone" class="block font-bold text-slate-700 mb-2 text-sm">声のタイプ (Voice Style):</label>
+                        <select id="tts-tone" class="w-full bg-white border-2 border-sky-200 rounded-xl p-3 font-semibold text-slate-700 outline-none focus:border-sky-500">
+                            <option value="cheerfully">Cheerfully / 明るく</option>
+                            <option value="slowly and clearly">Slowly and Clearly / ゆっくり丁寧に</option>
+                            <option value="firmly">Firmly and formally / きっぱりと</option>
+                            <option value="excitedly">With extreme excitement / ハイテンションで</option>
+                        </select>
+                    </div>
+
+                    <!-- Action Trigger -->
+                    <button onclick="runSandboxSpeech()" id="btn-generate-sound" class="w-full bg-sky-500 text-white font-extrabold py-4 rounded-xl shadow-md hover:bg-sky-600 transition transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3">
+                        <i class="fa-solid fa-volume-high animate-bounce"></i>
+                        <span>発音を聞く</span>
+                    </button>
+                </div>
+
+                <!-- Input card -->
+                <div class="md:col-span-2 flex flex-col gap-4">
+                    <textarea id="tts-text-input" class="w-full flex-grow min-h-[12rem] bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 font-bold text-xl text-slate-800 outline-none focus:border-sky-400 placeholder:text-slate-400 text-size-12min" placeholder="Type or paste any English sentence here..."></textarea>
+                    
+                    <!-- Prebuilt sentences quick shortcuts -->
+                    <div>
+                        <p class="font-bold text-slate-600 mb-2 text-sm">⚡ Quick Presets (From Original Files):</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="setSandboxText('We live in Japan.')" class="bg-slate-100 hover:bg-sky-100 text-slate-700 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-semibold">We live in Japan.</button>
+                            <button onclick="setSandboxText('Our school stands on the hill.')" class="bg-slate-100 hover:bg-sky-100 text-slate-700 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-semibold">Our school stands on the hill.</button>
+                            <button onclick="setSandboxText('The children look happy.')" class="bg-slate-100 hover:bg-sky-100 text-slate-700 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-semibold">The children look happy.</button>
+                            <button onclick="setSandboxText('He gave me a book.')" class="bg-slate-100 hover:bg-sky-100 text-slate-700 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-semibold">He gave me a book.</button>
+                            <button onclick="setSandboxText('The movie made her a star.')" class="bg-slate-100 hover:bg-sky-100 text-slate-700 hover:text-sky-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-semibold">The movie made her a star.</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: TIME-ATTACK QUIZ CHALLENGE -->
+    <section id="section-quiz" class="tab-content hidden">
+        <div class="bg-white rounded-3xl border-4 border-sky-200 shadow-xl p-6 md:p-8">
+            <!-- Start view screen -->
+            <div id="quiz-start-view" class="text-center py-8">
+                <div class="text-6xl mb-4">⏱️</div>
+                <h2 id="quiz-start-title" class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-3">Time-Attack Game</h2>
+                <p id="quiz-start-desc" class="text-slate-600 max-w-lg mx-auto mb-6">
+                    10秒以内に答えると5点、15秒以内なら3点、25秒以内なら1点ゲット！目指せハイスコア！🌟
+                </p>
+                <button onclick="startTimeAttackQuiz()" id="btn-begin-quiz" class="bg-gradient-to-r from-sky-400 to-blue-500 hover:from-sky-50 hover:to-blue-50 text-white font-extrabold px-10 py-4 rounded-2xl text-lg shadow-lg hover:shadow-xl transition transform hover:scale-105">
+                    クイズに挑戦する！
+                </button>
+            </div>
+
+            <!-- Active quiz gameplay view -->
+            <div id="quiz-play-view" class="hidden">
+                <!-- Status bar -->
+                <div class="flex flex-wrap justify-between items-center bg-sky-50 border border-sky-100 rounded-2xl p-4 mb-6 gap-4">
+                    <div class="flex items-center gap-3">
+                        <span id="quiz-progress" class="font-black text-sky-600 bg-white border border-sky-200 px-3 py-1 rounded-xl text-sm">Question 1/11</span>
+                        <div class="flex items-center gap-1 font-bold text-slate-700">
+                            <span id="quiz-label-score">獲得スコア:</span>
+                            <span id="quiz-score" class="text-sky-600 font-extrabold text-xl">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Countdown Timer Ring -->
+                    <div class="flex items-center gap-2">
+                        <span id="quiz-label-time" class="font-bold text-slate-600 text-sm">残り時間:</span>
+                        <div class="bg-rose-500 text-white font-black px-4 py-1 rounded-full text-lg shadow flex items-center gap-2 animate-pulse">
+                            <i class="fa-solid fa-clock"></i>
+                            <span id="quiz-timer">25</span><span id="quiz-label-sec">秒</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live countdown progress bar -->
+                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden mb-6">
+                    <div id="quiz-time-bar" class="bg-gradient-to-r from-sky-400 to-blue-500 h-full transition-all duration-1000" style="width: 100%;"></div>
+                </div>
+
+                <!-- Problem text -->
+                <div class="bg-slate-50 border border-slate-200 rounded-3xl p-6 md:p-8 mb-6 text-center">
+                    <p id="quiz-sentence" class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-2 leading-relaxed"></p>
+                    <p id="quiz-japanese" class="text-sm md:text-base text-slate-500 italic"></p>
+                </div>
+
+                <!-- Selection Option list -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="quiz-options">
+                    <!-- Options injected here -->
+                </div>
+
+                <!-- Instant feedback popup alerts -->
+                <div id="quiz-feedback-banner" class="hidden rounded-2xl p-4 mb-6 flex items-center justify-between transition-all">
+                    <div class="flex items-center gap-3">
+                        <span id="quiz-feedback-icon" class="text-2xl"></span>
+                        <span id="quiz-feedback-text" class="font-extrabold text-lg"></span>
+                    </div>
+                    <span id="quiz-points-gained" class="bg-white px-3 py-1 rounded-full font-black text-sm shadow"></span>
+                </div>
+
+                <!-- Next Control Trigger -->
+                <div class="flex justify-end">
+                    <button id="btn-quiz-next" onclick="nextQuizQuestion()" class="bg-sky-500 hover:bg-sky-600 text-white font-black px-8 py-3 rounded-xl shadow transition hidden">
+                        次の問題へ
+                    </button>
+                </div>
+            </div>
+
+            <!-- Final result leaderboard view -->
+            <div id="quiz-end-view" class="hidden text-center py-8">
+                <div class="text-7xl mb-4">👑</div>
+                <h2 id="quiz-end-title" class="text-3xl font-extrabold text-sky-600 mb-2">お見事！満点クリアです！🏆</h2>
+                <p id="quiz-final-score-text" class="text-slate-600 text-lg mb-6">お疲れ様でした！今回のスコア：<strong id="quiz-final-score" class="text-3xl text-sky-600 font-extrabold ml-1">0</strong></p>
+                <div class="flex justify-center gap-4">
+                    <button onclick="startTimeAttackQuiz()" id="btn-quiz-retry" class="bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold px-8 py-3 rounded-xl shadow transition">
+                        もう一度挑戦！
+                    </button>
+                    <button onclick="switchTab('study')" id="btn-quiz-home" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-extrabold px-8 py-3 rounded-xl transition">
+                        トップへ戻る
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Bilingual Settings Modal Setup -->
+<div id="settings-modal" class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4">
+    <div class="bg-white rounded-3xl border-4 border-sky-200 shadow-2xl p-6 max-w-md w-full relative">
+        <div class="flex items-center justify-between border-b-2 border-sky-100 pb-3 mb-4">
+            <h3 class="text-xl font-extrabold text-sky-700 flex items-center gap-2">
+                <i class="fa-solid fa-gear"></i> Settings / アプリ設定
+            </h3>
+            <button onclick="toggleSettingsModal()" class="text-slate-400 hover:text-slate-600 transition">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <!-- API Key Section -->
+            <div>
+                <label class="block font-bold text-slate-700 text-sm mb-1">Gemini API Key (Optional)</label>
+                <input id="settings-api-key" type="password" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-semibold text-slate-700 outline-none focus:border-sky-500" placeholder="AIzaSy...">
+                <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    ※ 外部サーバーで公開した際に、高音質なGemini AI音声（超リアル）を使い続けたい場合は、ご自身のGoogle Gemini APIキーを入力してください（ブラウザ内に安全に保存されます）。空のままにすると、お使いのデバイスの標準の音声合成で発音します。
+                </p>
+            </div>
+            
+            <!-- Voice Engine Picker -->
+            <div>
+                <label class="block font-bold text-slate-700 text-sm mb-1">Primary Voice Engine / 優先音声エンジン</label>
+                <select id="settings-engine" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl p-3 font-semibold text-slate-700 outline-none focus:border-sky-500">
+                    <option value="auto">Auto-detect (Recommended / 自動検知)</option>
+                    <option value="gemini">Force Gemini AI Studio Cloud Speech</option>
+                    <option value="native">Force Native Offline Speech (Browser TTS)</option>
+                </select>
+                <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">
+                    Web Speech APIを使用すれば、ネットワーク接続が遅くても遅延なしで発音させることができます。
+                </p>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-2 mt-6 pt-3 border-t border-sky-100">
+            <button onclick="saveSettings()" class="bg-sky-500 hover:bg-sky-600 text-white font-extrabold px-6 py-2.5 rounded-xl text-sm transition shadow-md">
+                Save & Apply / 設定を保存
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // State Manager variables
+    let currentLang = 'ja';
+    let activeTab = 'study';
+    let currentPatternId = 'SV';
+    
+    // Scrambler state variables
+    let scrambleIdx = 0;
+    let scrambleSelected = [];
+    let scrambleCurrentItem = null;
+
+    // Pattern Classifier state variables
+    let classifierIdx = 0;
+    let classifierCurrentItem = null;
+
+    // Time-Attack Quiz state variables
+    let quizIdx = 0;
+    let quizScore = 0;
+    let quizTimer = null;
+    let quizTimeLeft = 25;
+    let quizQuestions = [];
+    let isQuizAnswered = false;
+
+    // Initialization hook on page load
+    window.onload = function() {
+        // Prepare native speech synthesis
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.getVoices();
+        }
+
+        // Restore Settings
+        const savedKey = localStorage.getItem('skygrammar_apikey');
+        if (savedKey) {
+            document.getElementById('settings-api-key').value = savedKey;
+        }
+        const savedEngine = localStorage.getItem('skygrammar_engine') || 'auto';
+        document.getElementById('settings-engine').value = savedEngine;
+
+        switchTab('study');
+        selectPattern('SV');
+        initWorksheets();
+    };
+
+    // Toggle Japanese / English representation
+    function toggleLanguage() {
+        currentLang = currentLang === 'ja' ? 'en' : 'ja';
+        document.getElementById('lang-btn').innerText = LANG_DATA[currentLang].langBtn;
+        
+        // Refresh UI elements
+        updateUI();
+    }
+
+    // Dynamic UI Translation updates
+    function updateUI() {
+        const lang = LANG_DATA[currentLang];
+        document.getElementById('header-logo').innerText = lang.logo;
+        document.getElementById('header-subtitle').innerText = lang.subtitle;
+        document.getElementById('nav-study').innerHTML = lang.navStudy;
+        document.getElementById('nav-worksheet').innerHTML = lang.navWorksheet;
+        document.getElementById('nav-listening').innerHTML = lang.navListening;
+        document.getElementById('nav-quiz').innerHTML = lang.navQuiz;
+        document.getElementById('mascot-text').innerText = lang.mascotWelcome;
+
+        // Pattern hub
+        document.getElementById('subtext-tip').innerText = lang.subtextParen;
+        document.querySelectorAll('.listen-btn-text').forEach(btn => {
+            btn.innerText = lang.listenButton;
+        });
+
+        // Map accent labels
+        document.getElementById('lbl-accent-us').innerText = lang.accentUS;
+        document.getElementById('lbl-accent-uk').innerText = lang.accentUK;
+        document.getElementById('lbl-accent-au').innerText = lang.accentAU;
+        document.getElementById('lbl-accent-uk-2').innerText = lang.accentUK;
+        document.getElementById('lbl-accent-ie').innerText = lang.accentIE;
+        document.getElementById('lbl-accent-ie-2').innerText = lang.accentIE;
+
+        // Scrambler elements
+        document.getElementById('worksheet-main-title').innerText = lang.unscrambleTitle;
+        document.getElementById('worksheet-main-desc').innerText = lang.unscrambleDesc;
+        document.getElementById('btn-show-ans').innerText = lang.showAnswer;
+        document.getElementById('btn-check-scramble').innerText = lang.submitCheck;
+
+        // Accent sandbox UI
+        document.getElementById('accent-main-title').innerText = lang.navListening;
+        document.getElementById('lbl-accent').innerText = lang.accentLabel;
+        document.getElementById('lbl-tone').innerText = lang.speedLabel;
+        document.getElementById('btn-generate-sound').querySelector('span').innerText = lang.listenButton;
+
+        // Quiz elements
+        document.getElementById('quiz-start-desc').innerText = lang.quizDesc;
+        document.getElementById('btn-begin-quiz').innerText = lang.startQuiz;
+        document.getElementById('btn-quiz-retry').innerText = lang.retryButton;
+        document.getElementById('btn-quiz-home').innerText = lang.backToTop;
+        document.getElementById('quiz-label-score').innerText = lang.scoreText;
+        document.getElementById('quiz-label-time').innerText = lang.timeRem;
+        document.getElementById('quiz-label-sec').innerText = lang.sec;
+
+        // Re-draw study contents & scrambler
+        selectPattern(currentPatternId);
+        loadScrambleQuestion();
+        loadClassifierQuestion();
+    }
+
+    // Switch Application Modes (Tabs)
+    function switchTab(tabId) {
+        activeTab = tabId;
+        
+        // Toggle tab highlights
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.remove('bg-white', 'text-sky-600', 'shadow-md');
+            tab.classList.add('text-white', 'hover:bg-sky-600/50');
+        });
+        
+        const activeNav = document.getElementById(`nav-${tabId}`);
+        activeNav.classList.remove('text-white', 'hover:bg-sky-600/50');
+        activeNav.classList.add('bg-white', 'text-sky-600', 'shadow-md');
+
+        // Toggle content containers
+        document.querySelectorAll('.tab-content').forEach(section => {
+            section.classList.add('hidden');
+        });
+        document.getElementById(`section-${tabId}`).classList.remove('hidden');
+
+        // Pause sound streams when changing tabs
+        stopAudioEngine();
+    }
+
+    // Toggle Settings modal visibility
+    function toggleSettingsModal() {
+        const modal = document.getElementById('settings-modal');
+        modal.classList.toggle('hidden');
+    }
+
+    // Save configuration settings Locally
+    function saveSettings() {
+        const apiKeyInput = document.getElementById('settings-api-key').value.trim();
+        const engineSelect = document.getElementById('settings-engine').value;
+
+        localStorage.setItem('skygrammar_apikey', apiKeyInput);
+        localStorage.setItem('skygrammar_engine', engineSelect);
+
+        showCustomMessageBox("Settings updated successfully! / 設定を保存しました！", "success");
+        toggleSettingsModal();
+    }
+</script>
+
+<script>
+    // Selection of active sentence pattern tab
+    function selectPattern(patternId) {
+        currentPatternId = patternId;
+        const pattern = PATTERNS_DATA.find(p => p.id === patternId);
+        if (!pattern) return;
+
+        // Toggle visual active button styles
+        document.querySelectorAll('.pattern-btn').forEach(btn => {
+            const btnId = btn.id.replace('btn-p-', '');
+            btn.className = "pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform hover:scale-105 bg-white text-slate-600 border-slate-200";
+            if (btnId === patternId) {
+                if (btnId === 'SV') btn.className = "pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform scale-105 bg-sky-500 text-white border-sky-600";
+                if (btnId === 'SVC') btn.className = "pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform scale-105 bg-purple-500 text-white border-purple-600";
+                if (btnId === 'SVO') btn.className = "pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform scale-105 bg-emerald-500 text-white border-emerald-600";
+                if (btnId === 'SVOO') btn.className = "pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform scale-105 bg-orange-500 text-white border-orange-600";
+                if (btnId === 'SVOC') btn.className = "pattern-btn px-6 py-3 rounded-2xl font-extrabold text-lg shadow-sm border-2 transition-all transform scale-105 bg-pink-500 text-white border-pink-600";
+            }
+        });
+
+        // Set card information based on selected language
+        document.getElementById('p-title').innerText = currentLang === 'ja' ? pattern.titleJa : pattern.titleEn;
+        document.getElementById('p-formula').innerText = pattern.formula;
+        document.getElementById('p-desc').innerText = currentLang === 'ja' ? pattern.descJa : pattern.descEn;
+
+        // Render Positive Case 1
+        const sample1 = pattern.samples[0];
+        renderSampleAnalysis('sample1-pos-words', sample1.analysisPos);
+        document.getElementById('sample1-pos-ja').innerText = sample1.jaPos;
+
+        // Render Negative Case 1
+        renderSampleAnalysis('sample1-neg-words', sample1.analysisNeg);
+        document.getElementById('sample1-neg-ja').innerText = sample1.jaNeg;
+
+        // Render Positive Case 2
+        const sample2 = pattern.samples[1];
+        renderSampleAnalysis('sample2-pos-words', sample2.analysisPos);
+        document.getElementById('sample2-pos-ja').innerText = sample2.jaPos;
+
+        // Render Negative Case 2
+        renderSampleAnalysis('sample2-neg-words', sample2.analysisNeg);
+        document.getElementById('sample2-neg-ja').innerText = sample2.jaNeg;
+
+        // Render Advanced Positive Case 3
+        const sample3 = pattern.samples[2];
+        renderSampleAnalysis('sample3-pos-words', sample3.analysisPos);
+        document.getElementById('sample3-pos-ja').innerText = sample3.jaPos;
+
+        // Render Advanced Negative Case 3
+        renderSampleAnalysis('sample3-neg-words', sample3.analysisNeg);
+        document.getElementById('sample3-neg-ja').innerText = sample3.jaNeg;
+    }
+
+    // Helper to generate styled word analysis chunks with hovering interaction definitions
+    function renderSampleAnalysis(containerId, dataArray) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+
+        dataArray.forEach(chunk => {
+            const wordBox = document.createElement('div');
+            wordBox.className = "flex flex-col items-center cursor-pointer group mb-1";
+            
+            // Map grammatical tag roles to colors
+            let colorClass = "color-modifier";
+            if (chunk.role === 'S') colorClass = "color-subject";
+            if (chunk.role === 'V') colorClass = "color-verb";
+            if (chunk.role === 'O') colorClass = "color-object";
+            if (chunk.role === 'C') colorClass = "color-complement";
+
+            // Click interaction listener
+            wordBox.onclick = () => showGlossaryExplanation(chunk.role);
+
+            wordBox.innerHTML = `
+                <div class="text-base font-bold bg-white px-2 py-1 rounded-md border border-slate-200 group-hover:scale-105 transition">${chunk.text}</div>
+                <div class="text-xs font-black px-3 py-0.5 mt-1 rounded-full ${colorClass} group-hover:shadow-md transition">${chunk.role}</div>
+            `;
+            container.appendChild(wordBox);
+        });
+    }
+
+    // Display hovering explanation descriptions inside the study block
+    function showGlossaryExplanation(role) {
+        const glossaryBox = document.getElementById('glossary-box');
+        const glossaryTitle = document.getElementById('glossary-title');
+        const glossaryDesc = document.getElementById('glossary-desc');
+
+        glossaryBox.classList.remove('hidden');
+        glossaryTitle.innerText = `${role} - Element Detail`;
+        glossaryDesc.innerText = LANG_DATA[currentLang].elementGlossary[role] || "";
+    }
+</script>
+
+<script>
+    // State keeping of any current playing audio tracks (Gemini audio)
+    let currentAudioSource = null;
+
+    // Convert standard base64 strings to pure ArrayBuffers
+    function base64ToArrayBuffer(base64) {
+        const binaryString = atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+
+    // Packaging pure signed 16-bit PCM arrays into a standard WAV wrapper
+    function pcmToWav(pcmData, sampleRate) {
+        const buffer = new ArrayBuffer(44 + pcmData.byteLength);
+        const view = new DataView(buffer);
+
+        /* RIFF header */
+        writeString(view, 0, 'RIFF');
+        view.setUint32(4, 36 + pcmData.byteLength, true);
+        writeString(view, 8, 'WAVE');
+        
+        /* Format chunk header */
+        writeString(view, 12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true); // Raw PCM
+        view.setUint16(22, 1, true); // Mono Channels
+        view.setUint32(24, sampleRate, true); // Sample Rate
+        view.setUint32(28, sampleRate * 2, true); // Byte Rate
+        view.setUint16(32, 2, true); // Block alignment
+        view.setUint16(34, 16, true); // 16 Bit resolution
+        
+        /* Data chunk header */
+        writeString(view, 36, 'data');
+        view.setUint32(40, pcmData.byteLength, true);
+
+        // Copy raw PCM byte blocks
+        const pcmAsInt16 = new Int16Array(pcmData);
+        for (let i = 0; i < pcmAsInt16.length; i++) {
+            view.setInt16(44 + i * 2, pcmAsInt16[i], true);
+        }
+
+        return new Blob([view], { type: 'audio/wav' });
+    }
+
+    function writeString(view, offset, string) {
+        for (let i = 0; i < string.length; i++) {
+            view.setUint8(offset + i, string.charCodeAt(i));
+        }
+    }
+
+    // Play native TTS fallback using the device's built-in Web Speech API
+    function playNativeTTS(text, locale, speedStyle = "normal") {
+        if (!('speechSynthesis' in window)) {
+            showCustomMessageBox("Browser text-to-speech not supported on this device.", "error");
+            return;
+        }
+
+        // Cancel any currently playing speech to avoid overlap
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = locale;
+
+        // Try to find a high-quality system voice matching the selected language/locale
+        const voices = window.speechSynthesis.getVoices();
+        const matchingVoice = voices.find(v => v.lang.toLowerCase().replace('_', '-') === locale.toLowerCase()) || 
+                              voices.find(v => v.lang.toLowerCase().startsWith(locale.split('-')[0].toLowerCase()));
+        
+        if (matchingVoice) {
+            utterance.voice = matchingVoice;
+        }
+
+        // Configure speed based on Tone style
+        if (speedStyle === "slowly and clearly") {
+            utterance.rate = 0.75;
+        } else if (speedStyle === "excitedly") {
+            utterance.rate = 1.25;
+            utterance.pitch = 1.15;
+        } else {
+            utterance.rate = 0.95;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Core Speech execution call to Gemini API with robust native fallback
+    async function requestTTS(textPrompt, voiceName, btnElement, fallbackLocale = "en-US", fallbackText = "") {
+        const savedEngine = localStorage.getItem('skygrammar_engine') || 'auto';
+        const localApiKey = localStorage.getItem('skygrammar_apikey') || '';
+
+        // If explicitly forced to Native, bypass Gemini API completely
+        if (savedEngine === 'native') {
+            playNativeTTS(fallbackText || textPrompt, fallbackLocale);
+            return;
+        }
+
+        // Change visual button loading state
+        const originalHTML = btnElement.innerHTML;
+        btnElement.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Loading...`;
+        btnElement.disabled = true;
+
+        try {
+            // Empty key triggers the workspace's automatic key-signing router.
+            // If hosted outside, it uses the key saved in local Settings.
+            const apiKey = localApiKey || ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{
+                    parts: [{ text: textPrompt }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voiceName }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Cloud voice request returned status code: ${response.status}`);
+            }
+
+            const result = await response.json();
+            const part = result?.candidates?.[0]?.content?.parts?.[0];
+            const audioBase64 = part?.inlineData?.data;
+            const mimeType = part?.inlineData?.mimeType;
+
+            if (audioBase64 && mimeType && mimeType.startsWith("audio/")) {
+                let sampleRate = 24000;
+                const match = mimeType.match(/rate=(\d+)/);
+                if (match) {
+                    sampleRate = parseInt(match[1], 10);
+                }
+
+                // Decode PCM16 data and write WAV
+                const pcmBuffer = base64ToArrayBuffer(audioBase64);
+                const wavBlob = pcmToWav(pcmBuffer, sampleRate);
+                const audioUrl = URL.createObjectURL(wavBlob);
+
+                // Stop current playing audio
+                stopAudioEngine();
+
+                // Play generated track
+                const audio = new Audio(audioUrl);
+                currentAudioSource = audio;
+                audio.play();
+            } else {
+                throw new Error("No audio block in response.");
+            }
+        } catch (error) {
+            console.warn("Gemini Studio cloud voice unavailable. Triggering system offline speech synthesis fallback...", error);
+            // Seamlessly fall back to native device speech
+            playNativeTTS(fallbackText || textPrompt, fallbackLocale);
+        } finally {
+            // Restore visual button state
+            btnElement.innerHTML = originalHTML;
+            btnElement.disabled = false;
+        }
+    }
+
+    // Stops any active audio source playing in background
+    function stopAudioEngine() {
+        if (currentAudioSource) {
+            currentAudioSource.pause();
+            currentAudioSource = null;
+        }
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+
+    // Handles TTS calling for Study Hub sample sentences with fallback localization
+    function playSampleVoice(sampleKey) {
+        const pattern = PATTERNS_DATA.find(p => p.id === currentPatternId);
+        if (!pattern) return;
+
+        let sentence = "";
+        let voice = "Zephyr"; 
+        let accentGuideline = "";
+        let fallbackLocale = "en-US";
+
+        if (sampleKey === 'pos1') {
+            sentence = pattern.samples[0].engPos;
+            voice = "Kore"; 
+            accentGuideline = "Speak cheerfully in a clear American accent";
+            fallbackLocale = "en-US";
+        } else if (sampleKey === 'neg1') {
+            sentence = pattern.samples[0].engNeg;
+            voice = "Fenrir"; 
+            accentGuideline = "Speak with a prominent British accent";
+            fallbackLocale = "en-GB";
+        } else if (sampleKey === 'pos2') {
+            sentence = pattern.samples[1].engPos;
+            voice = "Puck"; 
+            accentGuideline = "Speak cheerfully with an Australian accent";
+            fallbackLocale = "en-AU";
+        } else if (sampleKey === 'neg2') {
+            sentence = pattern.samples[1].engNeg;
+            voice = "Fenrir"; 
+            accentGuideline = "Speak with a prominent British accent";
+            fallbackLocale = "en-GB";
+        } else if (sampleKey === 'advpos') {
+            sentence = pattern.samples[2].engPos;
+            voice = "Callirrhoe"; 
+            accentGuideline = "Speak with a natural Irish accent (Hiberno-English), with soft r-drops, clear fronted vowels, and a musical lilt";
+            fallbackLocale = "en-IE";
+        } else if (sampleKey === 'advneg') {
+            sentence = pattern.samples[2].engNeg;
+            voice = "Callirrhoe"; 
+            accentGuideline = "Speak with a natural Irish accent (Hiberno-English), with soft r-drops, clear fronted vowels, and a musical lilt";
+            fallbackLocale = "en-IE";
+        }
+
+        const promptText = `Say this sentence: "${sentence}". Guideline: ${accentGuideline}`;
+        const activeBtn = event.currentTarget;
+        requestTTS(promptText, voice, activeBtn, fallbackLocale, sentence);
+    }
+</script>
+
+<script>
+    function initWorksheets() {
+        scrambleIdx = 0;
+        classifierIdx = 0;
+        loadScrambleQuestion();
+        loadClassifierQuestion();
+    }
+
+    // Load active scrambler question
+    function loadScrambleQuestion() {
+        scrambleCurrentItem = SCRAMBLE_ITEMS[scrambleIdx];
+        scrambleSelected = [];
+        
+        // Hide answer hints on reset
+        document.getElementById('scramble-en-hint').classList.add('hidden');
+        document.getElementById('btn-check-scramble').classList.remove('hidden');
+        document.getElementById('btn-next-scramble').classList.add('hidden');
+
+        document.getElementById('scramble-index').innerText = `Question ${scrambleIdx + 1}/${SCRAMBLE_ITEMS.length}`;
+        document.getElementById('scramble-ja').innerText = scrambleCurrentItem.meaningJa;
+        document.getElementById('scramble-en-hint').innerText = scrambleCurrentItem.meaningEn;
+
+        // Render work area targets
+        renderScrambleWorkspace();
+
+        // Populate options randomly scrambled
+        const shuffledWords = [...scrambleCurrentItem.words].sort(() => Math.random() - 0.5);
+        const pool = document.getElementById('scramble-pool');
+        pool.innerHTML = '';
+
+        shuffledWords.forEach(word => {
+            const card = document.createElement('button');
+            card.className = "bg-white hover:bg-sky-100 text-slate-700 font-extrabold border-2 border-sky-200 px-4 py-2 rounded-xl text-md transition transform hover:scale-105 active:scale-95 shadow-sm";
+            card.innerText = word;
+            card.onclick = () => selectScrambleWord(word, card);
+            pool.appendChild(card);
+        });
+    }
+
+    // Render active work area
+    function renderScrambleWorkspace() {
+        const workspace = document.getElementById('scramble-workspace');
+        workspace.innerHTML = '';
+
+        if (scrambleSelected.length === 0) {
+            workspace.innerHTML = `<span class="text-slate-400 font-medium italic text-sm m-auto">Click word cards below to arrange!</span>`;
+            return;
+        }
+
+        scrambleSelected.forEach((word, index) => {
+            const card = document.createElement('div');
+            card.className = "bg-sky-100 text-sky-700 font-black border-2 border-sky-300 px-4 py-2 rounded-xl text-md flex items-center gap-2 cursor-pointer shadow-sm";
+            card.innerHTML = `
+                <span>${word}</span>
+                <button onclick="removeScrambleWord(${index})" class="text-sky-500 hover:text-sky-700"><i class="fa-solid fa-circle-xmark"></i></button>
+            `;
+            workspace.appendChild(card);
+        });
+    }
+
+    // Trigger word select from pool
+    function selectScrambleWord(word, cardElement) {
+        scrambleSelected.push(word);
+        cardElement.disabled = true;
+        cardElement.classList.add('opacity-30');
+        renderScrambleWorkspace();
+    }
+
+    // Delete selected word from workspace and restore active pool state
+    function removeScrambleWord(index) {
+        const word = scrambleSelected[index];
+        scrambleSelected.splice(index, 1);
+        renderScrambleWorkspace();
+
+        // Restore pool card state
+        const pool = document.getElementById('scramble-pool');
+        Array.from(pool.children).forEach(card => {
+            if (card.innerText === word && card.disabled) {
+                card.disabled = false;
+                card.classList.remove('opacity-30');
+            }
+        });
+    }
+
+    // Check scrambler ordering solution
+    function checkScrambleAnswer() {
+        const correctStr = scrambleCurrentItem.correctOrder.join(" ");
+        const userStr = scrambleSelected.join(" ");
+
+        if (correctStr === userStr) {
+            showCustomMessageBox(LANG_DATA[currentLang].correctAlert, "success");
+            document.getElementById('btn-check-scramble').classList.add('hidden');
+            document.getElementById('btn-next-scramble').classList.remove('hidden');
+        } else {
+            showCustomMessageBox(LANG_DATA[currentLang].wrongAlert, "error");
+        }
+    }
+
+    // Force answer reveal
+    function revealScrambleHint() {
+        const hint = document.getElementById('scramble-en-hint');
+        hint.classList.toggle('hidden');
+    }
+
+    // Move to next scrambler slide
+    function nextScrambleQuestion() {
+        scrambleIdx = (scrambleIdx + 1) % SCRAMBLE_ITEMS.length;
+        loadScrambleQuestion();
+    }
+
+    // Audio preview inside word scrambler
+    function scramblePlayVoice() {
+        const correctStr = scrambleCurrentItem.correctOrder.join(" ");
+        const voicePrompt = `Say slowly and clearly: "${correctStr}"`;
+        const activeBtn = event.currentTarget;
+        requestTTS(voicePrompt, "Zephyr", activeBtn, "en-US", correctStr);
+    }
+</script>
+
+<script>
+    // Load question for pattern classifier
+    function loadClassifierQuestion() {
+        classifierCurrentItem = WORKSHEET_ITEMS[classifierIdx];
+        
+        document.getElementById('classifier-eng').innerText = classifierCurrentItem.sentence;
+        document.getElementById('classifier-ja').innerText = currentLang === 'ja' ? classifierCurrentItem.meaning : "";
+        document.getElementById('classifier-breakdown').classList.add('hidden');
+
+        // Draw multiple choices buttons
+        const optionsContainer = document.getElementById('classifier-options');
+        optionsContainer.innerHTML = '';
+
+        classifierCurrentItem.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = "bg-white hover:bg-sky-100 text-slate-700 font-extrabold border-2 border-slate-200 py-3 rounded-xl transition transform hover:scale-105 active:scale-95";
+            btn.innerText = opt;
+            btn.onclick = () => checkClassifierAnswer(opt, btn);
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    // Evaluate classifier answer
+    function checkClassifierAnswer(selectedOption, btnElement) {
+        const isCorrect = selectedOption === classifierCurrentItem.answer;
+        const feedback = document.getElementById('classifier-feedback');
+        
+        // Disable choice buttons to prevent duplicate submits
+        document.querySelectorAll('#classifier-options button').forEach(b => b.disabled = true);
+
+        if (isCorrect) {
+            btnElement.className = "bg-emerald-500 text-white font-black border-2 border-emerald-600 py-3 rounded-xl transition";
+            feedback.innerText = currentLang === 'ja' ? "正解！素晴らしい！🎉" : "Excellent! Correct! 🎉";
+        } else {
+            btnElement.className = "bg-rose-500 text-white font-black border-2 border-rose-600 py-3 rounded-xl transition";
+            feedback.innerText = currentLang === 'ja' ? `不正解！正解は ${classifierCurrentItem.answer} だよ！` : `Incorrect! The answer is ${classifierCurrentItem.answer}!`;
+        }
+
+        // Draw analysis breakdown
+        document.getElementById('classifier-breakdown').classList.remove('hidden');
+        const breakdownRender = document.getElementById('classifier-analysis-render');
+        breakdownRender.innerHTML = '';
+
+        classifierCurrentItem.parts.forEach(part => {
+            let colorClass = "color-modifier";
+            if (part.r === 'S') colorClass = "color-subject";
+            if (part.r === 'V') colorClass = "color-verb";
+            if (part.r === 'O') colorClass = "color-object";
+            if (part.r === 'C') colorClass = "color-complement";
+
+            const tag = document.createElement('div');
+            tag.className = "flex flex-col items-center p-2 bg-white border border-slate-200 rounded-lg";
+            tag.innerHTML = `
+                <span class="text-sm font-bold text-slate-800">${part.t}</span>
+                <span class="text-xs font-black px-2 mt-1 rounded ${colorClass}">${part.r}</span>
+            `;
+            breakdownRender.appendChild(tag);
+        });
+    }
+
+    // Load next classifier
+    function nextClassifierQuestion() {
+        classifierIdx = (classifierIdx + 1) % WORKSHEET_ITEMS.length;
+        loadClassifierQuestion();
+    }
+
+    // Injects fast sentence preset values
+    function setSandboxText(text) {
+        document.getElementById('tts-text-input').value = text;
+    }
+
+    // Executing custom sandboxed TTS queries (Now with prompt mapping for Irish accent!)
+    function runSandboxSpeech() {
+        const rawText = document.getElementById('tts-text-input').value.trim();
+        if (!rawText) return;
+
+        const accentConfig = document.getElementById('tts-accent').value.split(':');
+        const voiceName = accentConfig[0];
+        const accentLabel = accentConfig[1];
+        const localeTag = accentConfig[2];
+        
+        const voiceTone = document.getElementById('tts-tone').value;
+
+        // Customise the guide prompt to Gemini
+        let detailedPrompt = "";
+        if (accentLabel === "Irish") {
+            detailedPrompt = `Perform TTS. Say this sentence: "${rawText}". Speaker Guideline: Speak ${voiceTone} in a natural, musical Irish accent (Hiberno-English lilt) with soft rolled R sounds and distinct vowels.`;
+        } else {
+            detailedPrompt = `Perform TTS. Say this sentence: "${rawText}". Speaker Guideline: Speak ${voiceTone} in a natural ${accentLabel} accent speaker tone.`;
+        }
+        
+        const actionBtn = document.getElementById('btn-generate-sound');
+        requestTTS(detailedPrompt, voiceName, actionBtn, localeTag, rawText);
+    }
+</script>
+
+<script>
+    // Triggers start of Time Attack Mode
+    function startTimeAttackQuiz() {
+        quizIdx = 0;
+        quizScore = 0;
+        isQuizAnswered = false;
+
+        // Clone and scramble total pool of worksheet items for unique runs
+        quizQuestions = [...WORKSHEET_ITEMS].sort(() => Math.random() - 0.5);
+
+        // Transition views
+        document.getElementById('quiz-start-view').classList.add('hidden');
+        document.getElementById('quiz-end-view').classList.add('hidden');
+        document.getElementById('quiz-play-view').classList.remove('hidden');
+
+        loadQuizQuestion();
+    }
+
+    // Sets up current active quiz slide
+    function loadQuizQuestion() {
+        isQuizAnswered = false;
+        const currentItem = quizQuestions[quizIdx];
+
+        // Format progress counter
+        document.getElementById('quiz-progress').innerText = `Question ${quizIdx + 1}/${quizQuestions.length}`;
+        document.getElementById('quiz-score').innerText = quizScore;
+        document.getElementById('quiz-sentence').innerText = currentItem.sentence;
+        document.getElementById('quiz-japanese').innerText = currentLang === 'ja' ? currentItem.meaning : "";
+
+        // Hide feedback banners
+        document.getElementById('quiz-feedback-banner').className = "hidden rounded-2xl p-4 mb-6 flex items-center justify-between";
+        document.getElementById('btn-quiz-next').classList.add('hidden');
+
+        // Draw multiple-choice choices
+        const choicesDiv = document.getElementById('quiz-options');
+        choicesDiv.innerHTML = '';
+
+        currentItem.options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = "bg-white hover:bg-sky-100 text-slate-700 font-extrabold border-2 border-slate-200 py-4 px-6 rounded-2xl text-lg transition text-left flex items-center justify-between group";
+            btn.innerHTML = `
+                <span>${opt} Pattern</span>
+                <i class="fa-solid fa-circle-chevron-right text-slate-300 group-hover:text-sky-500 transition"></i>
+            `;
+            btn.onclick = () => submitQuizAnswer(opt, btn);
+            choicesDiv.appendChild(btn);
+        });
+
+        // Setup ticking clocks
+        resetQuizTimer();
+    }
+
+    // Handles Timer Logic for the Scaled Points Rewards System
+    function resetQuizTimer() {
+        clearInterval(quizTimer);
+        quizTimeLeft = 25;
+        document.getElementById('quiz-timer').innerText = quizTimeLeft;
+        document.getElementById('quiz-time-bar').style.width = '100%';
+
+        quizTimer = setInterval(() => {
+            if (isQuizAnswered) {
+                clearInterval(quizTimer);
+                return;
+            }
+
+            quizTimeLeft--;
+            document.getElementById('quiz-timer').innerText = quizTimeLeft;
+            
+            // Calculate proportional width
+            const percentage = (quizTimeLeft / 25) * 100;
+            document.getElementById('quiz-time-bar').style.width = `${percentage}%`;
+
+            if (quizTimeLeft <= 0) {
+                clearInterval(quizTimer);
+                evaluateTimeOut();
+            }
+        }, 1000);
+    }
+
+    // Triggers answer evaluation
+    function submitQuizAnswer(selectedOpt, btnElement) {
+        if (isQuizAnswered) return;
+        isQuizAnswered = true;
+        clearInterval(quizTimer);
+
+        const currentItem = quizQuestions[quizIdx];
+        const isCorrect = selectedOpt === currentItem.answer;
+
+        const banner = document.getElementById('quiz-feedback-banner');
+        const feedbackIcon = document.getElementById('quiz-feedback-icon');
+        const feedbackText = document.getElementById('quiz-feedback-text');
+        const pointsLabel = document.getElementById('quiz-points-gained');
+
+        // Scaled Reward Calculation:
+        // Under 10s (>=16s left): 5 points
+        // Under 15s (>=11s left): 3 points
+        // Under 25s (>=1s left): 1 point
+        // Out of time: 0 points
+        let pointsEarned = 0;
+        if (isCorrect) {
+            const elapsed = 25 - quizTimeLeft;
+            if (elapsed <= 10) {
+                pointsEarned = 5;
+            } else if (elapsed <= 15) {
+                pointsEarned = 3;
+            } else if (elapsed <= 25) {
+                pointsEarned = 1;
+            }
+            quizScore += pointsEarned;
+        }
+
+        // Disable all choices
+        document.querySelectorAll('#quiz-options button').forEach(b => {
+            b.disabled = true;
+            b.classList.remove('hover:bg-sky-100');
+        });
+
+        // Set colors and feedback details
+        if (isCorrect) {
+            btnElement.className = "bg-emerald-500 text-white font-black border-2 border-emerald-600 py-4 px-6 rounded-2xl text-lg flex items-center justify-between";
+            btnElement.innerHTML = `<span>${selectedOpt} Pattern</span> <i class="fa-solid fa-circle-check"></i>`;
+            
+            banner.className = "bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl p-4 mb-6 flex items-center justify-between";
+            feedbackIcon.innerHTML = `<i class="fa-solid fa-face-smile text-3xl text-emerald-600"></i>`;
+            feedbackText.innerText = currentLang === 'ja' ? "正解！素晴らしい！🎉" : "That is correct! Awesome job!";
+            pointsLabel.innerText = `+ ${pointsEarned} Pts`;
+            pointsLabel.className = "bg-emerald-600 text-white px-3 py-1 rounded-full font-black text-sm shadow";
+        } else {
+            btnElement.className = "bg-rose-500 text-white font-black border-2 border-rose-600 py-4 px-6 rounded-2xl text-lg flex items-center justify-between";
+            btnElement.innerHTML = `<span>${selectedOpt} Pattern</span> <i class="fa-solid fa-circle-xmark"></i>`;
+            
+            // Highlight right answer
+            document.querySelectorAll('#quiz-options button').forEach(b => {
+                if (b.innerText.includes(currentItem.answer)) {
+                    b.className = "bg-emerald-100 text-emerald-800 font-bold border-2 border-emerald-300 py-4 px-6 rounded-2xl text-lg flex items-center justify-between";
+                }
+            });
+
+            banner.className = "bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl p-4 mb-6 flex items-center justify-between";
+            feedbackIcon.innerHTML = `<i class="fa-solid fa-face-frown text-3xl text-rose-600"></i>`;
+            feedbackText.innerText = currentLang === 'ja' ? `ちがうよ！正解は ${currentItem.answer} だよ！` : `Incorrect! The pattern was ${currentItem.answer}!`;
+            pointsLabel.innerText = "+ 0 Pts";
+            pointsLabel.className = "bg-rose-600 text-white px-3 py-1 rounded-full font-black text-sm shadow";
+        }
+
+        document.getElementById('quiz-score').innerText = quizScore;
+        document.getElementById('btn-quiz-next').classList.remove('hidden');
+    }
+
+    // Handles Timeout Events
+    function evaluateTimeOut() {
+        isQuizAnswered = true;
+        const currentItem = quizQuestions[quizIdx];
+
+        const banner = document.getElementById('quiz-feedback-banner');
+        const feedbackIcon = document.getElementById('quiz-feedback-icon');
+        const feedbackText = document.getElementById('quiz-feedback-text');
+        const pointsLabel = document.getElementById('quiz-points-gained');
+
+        // Highlight correct path
+        document.querySelectorAll('#quiz-options button').forEach(b => {
+            b.disabled = true;
+            if (b.innerText.includes(currentItem.answer)) {
+                b.className = "bg-emerald-100 text-emerald-800 font-bold border-2 border-emerald-300 py-4 px-6 rounded-2xl text-lg flex items-center justify-between";
+            }
+        });
+
+        banner.className = "bg-amber-50 border border-amber-200 text-amber-800 rounded-2xl p-4 mb-6 flex items-center justify-between";
+        feedbackIcon.innerHTML = `<i class="fa-solid fa-hourglass-end text-3xl text-amber-600 animate-bounce"></i>`;
+        feedbackText.innerText = currentLang === 'ja' ? "時間切れ！急いで解いてみよう！⏱️" : "Time's up! Let's answer faster next time!";
+        pointsLabel.innerText = "+ 0 Pts";
+        pointsLabel.className = "bg-amber-600 text-white px-3 py-1 rounded-full font-black text-sm shadow";
+
+        document.getElementById('btn-quiz-next').classList.remove('hidden');
+    }
+
+    // Moves through quiz slide queue
+    function nextQuizQuestion() {
+        quizIdx++;
+        if (quizIdx >= quizQuestions.length) {
+            endQuizChallenge();
+        } else {
+            loadQuizQuestion();
+        }
+    }
+
+    // Completes quiz challenge run
+    function endQuizChallenge() {
+        document.getElementById('quiz-play-view').classList.add('hidden');
+        const finalScreen = document.getElementById('quiz-end-view');
+        finalScreen.classList.remove('hidden');
+
+        document.getElementById('quiz-final-score').innerText = quizScore;
+        
+        // Dynamically customize feedback headers based on perfect scores
+        const maxPossible = quizQuestions.length * 5;
+        const headerTitle = document.getElementById('quiz-end-title');
+        
+        if (quizScore >= maxPossible - 5) {
+            headerTitle.innerText = currentLang === 'ja' ? "お見事！満点レベルの文型マスターだ！👑" : "Incredible! Master level performance! 👑";
+        } else {
+            headerTitle.innerText = currentLang === 'ja' ? "ナイスチャレンジ！もっと練習しよう！👍" : "Nice Try! Keep practicing to get better! 👍";
+        }
+    }
+</script>
+
+<script>
+    // Renders custom alert message overlays in place of unsafe block alert() calls
+    function showCustomMessageBox(message, type = "success") {
+        const wrapper = document.createElement('div');
+        wrapper.className = "fixed bottom-5 right-5 z-[200] transform translate-y-10 opacity-0 transition-all duration-300";
+        
+        let colorBg = "bg-emerald-500 border-emerald-600";
+        let iconHtml = `<i class="fa-solid fa-circle-check text-2xl"></i>`;
+        if (type === 'error') {
+            colorBg = "bg-rose-500 border-rose-600";
+            iconHtml = `<i class="fa-solid fa-circle-exclamation text-2xl"></i>`;
+        }
+
+        wrapper.innerHTML = `
+            <div class="${colorBg} text-white border-2 px-6 py-4 rounded-2xl flex items-center gap-3 shadow-2xl">
+                ${iconHtml}
+                <span class="font-extrabold text-size-12min">${message}</span>
+            </div>
+        `;
+        document.body.appendChild(wrapper);
+
+        // Slide up triggers
+        setTimeout(() => {
+            wrapper.classList.remove('translate-y-10', 'opacity-0');
+        }, 100);
+
+        // Auto slide away triggers
+        setTimeout(() => {
+            wrapper.classList.add('translate-y-10', 'opacity-0');
+            setTimeout(() => {
+                wrapper.remove();
+            }, 300);
+        }, 2800);
+    }
+</script>
+
+<footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm border-t border-slate-800">
+    <p class="font-semibold">&copy; 2026 SkyGrammar! Learn English with Confidence! ✨</p>
+    <p class="text-xs mt-1 text-slate-500">Powering Voice Sandbox via Gemini AI Multimodal Studio.</p>
+</footer>
+
+</body>
+</html>
+```
+eof
+
+### Summary of Changes:
+1. **Added Web Speech API (`window.speechSynthesis`) Fallback:** Every "発音を聞く" button now checks if the Gemini cloud request fails. If it does (such as when running as a published static file without a registered key), it seamlessly plays high-fidelity, local system synthesized speech matching the selected accent locale (such as Irish, British, or Australian).
+2. **Added Settings Dashboard (`settings-modal`):** Added a settings button in the navigation header that lets administrators/teachers securely enter their own Google Gemini API key to keep the cloud-based realistic AI voices active everywhere. It saves configurations automatically inside the student's browser `localStorage`.
+3. **Optimized Accent Playback:** Updated parameters so both custom input sandbox fields and preset patterns carry strict geographical locale keys (`en-IE`, `en-US`, `en-GB`, `en-AU`) for fallback accuracy.
