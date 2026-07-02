@@ -1,0 +1,2 @@
+# -MASTER-SENTENCE-PATTERNS
+SV SVO SVC SVOO SVOC の説明サイト！　明秀学園常陸高等学校在校生のため
